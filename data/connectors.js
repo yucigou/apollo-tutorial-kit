@@ -4,9 +4,13 @@ import { _ } from 'lodash';
 import fetch from 'node-fetch';
 import Mongoose from 'mongoose';
 
+// See https://github.com/sequelize/sequelize/issues/8417 for more information about the `operatorsAliases` configuration
+const Op = Sequelize.Op;
+
 const db = new Sequelize('blog', null, null, {
   dialect: 'sqlite',
   storage: './blog.sqlite',
+  operatorsAliases: Op
 });
 
 const AuthorModel = db.define('author', {
@@ -25,7 +29,9 @@ PostModel.belongsTo(AuthorModel);
 const Author = db.models.author;
 const Post = db.models.post;
 
-const mongo = Mongoose.connect('mongodb://localhost/views');
+Mongoose.Promise = global.Promise;
+
+const mongo = Mongoose.connect('mongodb://localhost/views', {useMongoClient: true});
 
 const ViewSchema = Mongoose.Schema({
     postId: Number,
