@@ -1,14 +1,12 @@
 import resolvers from './resolvers';
-import {
-  makeExecutableSchema,
-  addMockFunctionsToSchema,
-} from 'graphql-tools';
-import mocks from './mocks'
+import { makeExecutableSchema, addMockFunctionsToSchema } from 'graphql-tools';
+import mocks from './mocks';
 
 const typeDefs = `
 type Query {
   author(firstName: String, lastName: String): Author
   getFortuneCookie: String
+  allAuthors: [Author]
 }
 type Author {
   id: Int
