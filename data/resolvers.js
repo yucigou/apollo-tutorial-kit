@@ -1,31 +1,31 @@
 import { Author, View, FortuneCookie } from './connectors';
 
 const resolvers = {
-  Query: {
-    author(_, args) {
-      console.log(args);
-      return Author.find({ where: args });
+    Query: {
+        author(_, args) {
+            return Author.find({ where: args });
+        },
+        allAuthors() {
+            return Author.findAll();
+        },
+        getFortuneCookie() {
+            return FortuneCookie.getOne()
+        }
     },
-    allAuthors(_, args) {
-      return Author.findAll();
+    Author: {
+        posts(author) {
+            return author.getPosts();
+        },
     },
-    getFortuneCookie() {
-      return FortuneCookie.getOne();
-    }
-  },
-  Author: {
-    posts(author) {
-      return author.getPosts();
-    }
-  },
-  Post: {
-    author(post) {
-      return post.getAuthor();
+    Post: {
+        author(post) {
+            return post.getAuthor();
+        },
+        views(post) {
+            return View.findOne({postId: post.id})
+                .then((view) => view.views);
+        },
     },
-    views(post) {
-      return View.findOne({ postId: post.id }).then(view => view.views);
-    }
-  }
 };
 
 export default resolvers;
