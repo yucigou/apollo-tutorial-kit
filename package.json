@@ -4,7 +4,7 @@
   "description": "Starting point for the Apollo GraphQL Server tutorial.",
   "main": "server.js",
   "dependencies": {
-    "apollo-engine": "^0.6.1",
+    "apollo-engine": "^0.7.0",
     "apollo-server-express": "^1.2.0",
     "body-parser": "^1.18.2",
     "casual": "^1.5.17",
