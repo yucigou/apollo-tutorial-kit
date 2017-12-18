@@ -16,14 +16,11 @@ const ENGINE_API_KEY = 'service:mdg-private-a-service:EB-LWSjPdZX0ph-Yyn2cxA';
 const engine = new Engine({
   engineConfig: {
     apiKey: ENGINE_API_KEY,
-    logging: {
-      level: 'DEBUG'
-    },
     stores: [
       {
         name: 'inMemEmbeddedCache',
         inMemory: {
-          cacheSize: 10485760
+          cacheSize: 20971520 // 20 MB
         }
       }
     ],
@@ -31,9 +28,7 @@ const engine = new Engine({
       publicFullQueryStore: 'inMemEmbeddedCache'
     }
   },
-  graphqlPort: GRAPHQL_PORT || process.env.PORT,
-  endpoint: '/graphql',
-  dumpTraffic: true
+  graphqlPort: GRAPHQL_PORT
 });
 
 engine.start();
@@ -41,15 +36,13 @@ engine.start();
 const graphQLServer = express();
 
 graphQLServer.use(engine.expressMiddleware());
-
+graphQLServer.use(compression());
 graphQLServer.use(
   '/graphql',
   bodyParser.json(),
   graphqlExpress({ schema, tracing: true, cacheControl: true })
 );
 graphQLServer.use('/graphiql', graphiqlExpress({ endpointURL: '/graphql' }));
-
-graphQLServer.use(compression());
 
 graphQLServer.listen(GRAPHQL_PORT, () =>
   console.log(
