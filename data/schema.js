@@ -19,7 +19,7 @@ type Post {
 type Query {
   author(firstName: String, lastName: String): Author
   allAuthors: [Author]
-  getFortuneCookie: String @cacheControl(maxAge: 240)
+  getFortuneCookie: String @cacheControl(maxAge: 5000)
 }
 `;
 
