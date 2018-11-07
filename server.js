@@ -5,7 +5,7 @@ import schema from './data/schema';
 import compression from 'compression';
 import { Engine } from 'apollo-engine';
 
-const GRAPHQL_PORT = 3000;
+const GRAPHQL_PORT = process.env.PORT;
 
 // This is a key that we've set up specifically for this tutorial.
 // You can put your own key here if you sign up for a free account at
