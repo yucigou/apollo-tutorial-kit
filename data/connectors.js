@@ -4,6 +4,9 @@ import _ from 'lodash';
 import fetch from 'node-fetch';
 import Mongoose from 'mongoose';
 
+require('dotenv').config()
+const mongodbConnection = process.env.MONGODB_CONNECTION || 'mongodb://localhost/views'
+
 const db = new Sequelize('blog', null, null, {
   dialect: 'sqlite',
   storage: './blog.sqlite'
@@ -24,7 +27,7 @@ PostModel.belongsTo(AuthorModel);
 
 Mongoose.Promise = global.Promise;
 
-const mongo = Mongoose.connect('mongodb://localhost/views', {
+const mongo = Mongoose.connect(mongodbConnection, {
   useMongoClient: true
 });
 

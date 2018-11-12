@@ -34,3 +34,5 @@ node_modules
 
 blog.sqlite
 .idea/
+
+.env
