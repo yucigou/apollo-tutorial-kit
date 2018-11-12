@@ -15,6 +15,14 @@ npm install
 npm run start
 ```
 
+Configuration for branch server-tutorial-solution
+
+Add .env, and configure MongoDB connection string
+
+```
+MONGODB_CONNECTION=mongodb://username:password@host:port/database_name
+```
+
 Then open [http://localhost:3000/graphiql](http://localhost:3000/graphiql)
 
 When you paste this on the left side of the page:
